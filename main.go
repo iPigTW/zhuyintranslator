@@ -11,6 +11,23 @@ type Worde struct {
 	Zhuyin string `json:"zhuyin"`
 }
 func main() {
+	choice()
+}
+func choice() {
+	var choice int
+	fmt.Println(`Choose your input method:
+	1.File
+	2.Enter it manually
+	`)
+	fmt.Scanln(&choice)
+	switch choice {
+	case 2:
+		oneWord()
+	case 1:
+		fileInput()
+	}
+}
+func oneWord() {
 	var word string
 	fmt.Print("Enter a word to check...")
 	fmt.Scan(&word)
@@ -24,7 +41,24 @@ func main() {
 		fmt.Print("Word found! The zhuyin is "+zhu)
 	}
 }
-
+func fileInput() {
+	var path string
+	fmt.Print("Enter file path:")
+	fmt.Scan(&path)
+	file, _ := os.ReadFile(path)
+	for _, w := range string(file) {
+		check, zhuyin := check(string(w))
+		if (check) {
+			fmt.Println("The zhuyin for "+string(w)+" is "+zhuyin)
+		}else {
+			var zhu string
+			fmt.Print("Word "+string(w)+" not found! Please enter the zhuyin...")
+			fmt.Scan(&zhu)
+			save(string(w), zhu)
+		}
+		
+	}
+}
 func check(word string) (bool, string) {
 	var tmp []Worde
 	readfile, _ := os.ReadFile("data.json")
