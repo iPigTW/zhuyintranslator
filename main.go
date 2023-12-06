@@ -33,7 +33,7 @@ func oneWord() {
 	fmt.Scan(&word)
 	for _, w := range word {
 		check, zhu := check(string(w))
-		if !check {
+		if !check && len(string(w)) != 0 {
 			var zhuyin string
 			fmt.Print("\nWord "+string(w)+" not found! Please enter the zhuyin...")
 			fmt.Scan(&zhuyin)
@@ -54,16 +54,15 @@ func fileInput() {
 	file, _ := os.ReadFile(path)
 	for _, w := range string(file) {
 		check, zhuyin := check(string(w))
-		if (check) {
-			fmt.Print(zhuyin)
-		}else {
+		if !check && len(string(w)) != 0 {
 			var zhu string
 			fmt.Print("\nWord "+string(w)+" not found! Please enter the zhuyin...")
 			fmt.Scan(&zhu)
 			if len(zhu) != 0 {
 				save(string(w), zhu)
 			}
-			
+		}else {
+			fmt.Print(zhuyin)
 		}
 		
 	}
