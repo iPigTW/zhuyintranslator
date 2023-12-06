@@ -29,17 +29,23 @@ func choice() {
 }
 func oneWord() {
 	var word string
-	fmt.Print("Enter a word to check...")
+	fmt.Print("Enter words to check...")
 	fmt.Scan(&word)
-	check, zhu := check(word)
-	if !check {
-		var zhuyin string
-		fmt.Print("Word not found! Please enter the zhuyin...")
-		fmt.Scan(&zhuyin)
-		save(word, zhuyin)
-	}else {
-		fmt.Print(zhu)
+	for _, w := range word {
+		check, zhu := check(string(w))
+		if !check {
+			var zhuyin string
+			fmt.Print("\nWord "+string(w)+" not found! Please enter the zhuyin...")
+			fmt.Scan(&zhuyin)
+			if len(zhuyin) != 0 {
+				save(string(w), zhuyin)
+			}
+			
+		}else {
+			fmt.Print(zhu)
+		}
 	}
+	
 }
 func fileInput() {
 	var path string
@@ -52,9 +58,12 @@ func fileInput() {
 			fmt.Print(zhuyin)
 		}else {
 			var zhu string
-			fmt.Print("Word "+string(w)+" not found! Please enter the zhuyin...")
+			fmt.Print("\nWord "+string(w)+" not found! Please enter the zhuyin...")
 			fmt.Scan(&zhu)
-			save(string(w), zhu)
+			if len(zhu) != 0 {
+				save(string(w), zhu)
+			}
+			
 		}
 		
 	}
