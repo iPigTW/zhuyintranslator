@@ -38,7 +38,7 @@ func oneWord() {
 		fmt.Scan(&zhuyin)
 		save(word, zhuyin)
 	}else {
-		fmt.Print("Word found! The zhuyin is "+zhu)
+		fmt.Print(zhu)
 	}
 }
 func fileInput() {
@@ -49,7 +49,7 @@ func fileInput() {
 	for _, w := range string(file) {
 		check, zhuyin := check(string(w))
 		if (check) {
-			fmt.Println("The zhuyin for "+string(w)+" is "+zhuyin)
+			fmt.Print(zhuyin)
 		}else {
 			var zhu string
 			fmt.Print("Word "+string(w)+" not found! Please enter the zhuyin...")
